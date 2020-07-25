@@ -1,9 +1,13 @@
 package org.steamex.seleniumutils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverFactory {
+
+    private static final Logger logger = LogManager.getLogger(WebDriverFactory.class);
 
     /**
      * Gets a selenium WebDriver. Hides implementation details about the type of driver to allow focusing
@@ -14,7 +18,10 @@ public class WebDriverFactory {
      * @return A concrete implementation of WebDriver. For now it always returns ChromeDriver
      */
     public WebDriver getDriver() {
+        String chromeDriverPath = getChromeDriverPath();
+        logger.debug("Chrome Driver Path: " + chromeDriverPath);
         System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+        logger.debug("Property webdriver.chrome.driver has been set successfully");
         return new ChromeDriver();
     }
 
